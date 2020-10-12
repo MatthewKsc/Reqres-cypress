@@ -12,6 +12,16 @@ describe('Testing Get Endpoint', function (){
         });
     });
 
+    it('GetUsers Delay', function (){
+        cy.request('/api/users?delay=3').then((response)=>{
+            expect(response.status).eq(200);
+            expect(response.body).to.have.property('page', 1);
+            expect(response.body.data).to.have.length(6);
+            expect(response.headers).not.null;
+            expect(response.duration).above(3000)
+        });
+    });
+
     it('GetUser', function () {
         cy.request('/api/users/2').then((response)=>{
            expect(response.status).eq(200);
