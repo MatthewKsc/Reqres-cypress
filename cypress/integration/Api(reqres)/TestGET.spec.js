@@ -1,4 +1,4 @@
-describe('Testing Get Methods', function (){
+describe('Testing Get Endpoint', function (){
 
     it('GetUsers', function (){
         cy.request('/api/users?page=2').then((response)=>{
@@ -32,5 +32,15 @@ describe('Testing Get Methods', function (){
             expect(response.headers).not.null;
             expect(response.duration).not.null;
         });
+    });
+
+
+    //other possibility to check with its
+    it('GetUser NotFound2', function () {
+        cy.request({url:'/api/users/23', failOnStatusCode:false})
+            .its('status').should('eq', 404);
+
+        cy.request({url:'/api/users/23', failOnStatusCode:false})
+            .its('body').should('be.empty');
     });
 })
