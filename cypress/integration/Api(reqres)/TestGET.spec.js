@@ -24,4 +24,13 @@ describe('Testing Get Methods', function (){
 
         });
     });
+
+    it('GetUser NotFound', function () {
+        cy.request({url:'/api/users/23', failOnStatusCode:false}).then((response)=>{
+            expect(response.status).eq(404);
+            expect(response.body).empty;
+            expect(response.headers).not.null;
+            expect(response.duration).not.null;
+        });
+    });
 })
